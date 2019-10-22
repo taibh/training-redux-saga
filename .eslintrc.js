@@ -15,6 +15,7 @@ module.exports = {
 		semi: 1,
 		quotes: [1, 'single'],
 		"max-len": [1, { "code": 100 }],
-		"react/prop-types": 1
+		"react/prop-types": 1,
+		"no-undef": 0
 	}
 }

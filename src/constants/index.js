@@ -1,3 +1,4 @@
+export const API_ENDPOINT = 'https://5dad0ada0af1170014170883.mockapi.io';
 export const STATUSES = [
 	{
 		value: 0,
