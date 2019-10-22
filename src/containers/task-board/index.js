@@ -32,9 +32,11 @@ class TaskBoard extends Component {
 	}
 
 	openTaskForm = () => {
-		this.setState({
-			open: !this.state.open
-		});
+		// this.setState({
+		// 	open: !this.state.open
+		// });
+		const {taskActionCreators} = this.props;
+		taskActionCreators.fetchListTaskRequest();
 	}
 	cancelTaskForm = () => {
 		this.setState({

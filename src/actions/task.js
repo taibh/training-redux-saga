@@ -8,6 +8,7 @@ export const fetchListTask = () => {
 };
 
 export const fetchListTaskSuccess = data => {
+	console.log(123)
 	return {
 		type: taskConstants.FETCH_TASK_SUCCESS,
 		payLoad: {
@@ -28,10 +29,10 @@ export const fetchListTaskFailed = error => {
 export const fetchListTaskRequest = () => {
 	return dispatch => {
 		dispatch(fetchListTask());
-		taskApis.getList().then(response => {
-			dispatch(fetchListTaskSuccess(response.data));
-		}).catch(error => {
-			dispatch(fetchListTaskFailed(error));
-		});
+		// taskApis.getList().then(response => {
+		// 	dispatch(fetchListTaskSuccess(response.data));
+		// }).catch(error => {
+		// 	dispatch(fetchListTaskFailed(error));
+		// });
 	};
 };

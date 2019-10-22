@@ -1,4 +1,5 @@
 export const API_ENDPOINT = 'https://5dad0ada0af1170014170883.mockapi.io';
+
 export const STATUSES = [
 	{
 		value: 0,
@@ -13,3 +14,7 @@ export const STATUSES = [
 		label: 'COMPLETED'
 	}
 ];
+
+export const STATUS_CODE = {
+	SUCCESS: 200
+};
