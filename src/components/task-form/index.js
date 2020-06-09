@@ -5,12 +5,7 @@ import styles from './styles';
 
 import PropTypes from 'prop-types';
 
-import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
-import TextField from '@material-ui/core/TextField';
+import { Modal, Grid, TextField, Button } from '@material-ui/core';
 
 class TaskForm extends Component {
 
@@ -26,43 +21,37 @@ class TaskForm extends Component {
 	};
 
 	render() {
-		const {open} = this.props;
+		const {classes, open, onClose} = this.props;
 		return (
-			<Dialog
-				disableBackdropClick
-				disableEscapeKeyDown
-				maxWidth="xs"
-				onEntering={this.handleEntering}
-				aria-labelledby="confirmation-dialog-title"
-				open={open}
-			>
-				<DialogTitle id="confirmation-dialog-title">Phone Ringtone</DialogTitle>
-				<DialogContent>
-					<TextField
-						autoFocus
-						margin="dense"
-						id="name"
-						label="Email Address"
-						type="email"
-						fullWidth
-					/>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={this.handleCancel} color="primary">
-						Cancel
-					</Button>
-					<Button onClick={this.handleOk} color="primary">
-						Ok
-					</Button>
-				</DialogActions>
-			</Dialog>
+			<Modal open={open} onClose={onClose}>
+				<div className={classes.modal}>
+					<form>
+						<Grid container spacing={2}>
+							<Grid item md={12}>
+								<span>Add New</span>
+							</Grid>
+							<Grid item md={12}>
+								<TextField className={classes.textField} />
+							</Grid>
+							<Grid item md={12}>
+								<TextField className={classes.textField} />
+							</Grid>
+							<Grid item md={12}>
+								<Button color="primary">Save</Button>
+								<Button color="primary" onClick={onClose}>Cancel</Button>
+							</Grid>
+						</Grid>
+					</form>
+				</div>
+			</Modal>
 		);
 	}
 }
 
 TaskForm.propTypes = {
+	classes: PropTypes.object,
 	open: PropTypes.bool,
-	cancel: PropTypes.func
+	onClose: PropTypes.func
 };
 
 export default withStyles(styles)(TaskForm);

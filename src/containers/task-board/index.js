@@ -12,8 +12,11 @@ import AddIcon from '@material-ui/icons/Add';
 
 import TaskList from '../../components/task-list';
 import TaskForm from '../../components/task-form';
+import SearchBox from '../../components/search-box';
 
 import * as TaskActions from '../../actions/task';
+import * as ModalActions from '../../actions/modal';
+
 
 class TaskBoard extends Component {
 
@@ -27,25 +30,39 @@ class TaskBoard extends Component {
 	}
 
 	renderBoard() {
+		const { listTask } = this.props;
 		let xhtml = null;
+		xhtml = <TaskList listTask={listTask} />;
 		return xhtml;
 	}
 
-	openTaskForm = () => {
-		// this.setState({
-		// 	open: !this.state.open
-		// });
+	renderSearchBox() {
+		let xhtml = null;
+		xhtml = (<SearchBox handleChange={this.handleFilter} />);
+		return xhtml;
+	}
+
+	handleFilter = (e) => {
+		const {value} = e.target;
 		const {taskActionCreators} = this.props;
-		taskActionCreators.fetchListTaskRequest();
+		const { filterTasks } = taskActionCreators;
+		filterTasks(value);
 	}
+
+	openTaskForm = () => {
+		const { modalActionCreators } = this.props;
+		const { showModal } = modalActionCreators;
+		showModal();
+	}
+
 	cancelTaskForm = () => {
-		this.setState({
-			open: false
-		});
+		const { modalActionCreators } = this.props;
+		const { hideModal } = modalActionCreators;
+		hideModal();
 	}
+
 	render() {
-		const {classes, listTask} = this.props;
-		const {open} = this.state;
+		const {classes, open} = this.props;
 		return (
 			<div className={classes.taskBoard}>
 				<Button variant='contained' color='primary'
@@ -54,8 +71,9 @@ class TaskBoard extends Component {
 				>
 					<AddIcon />
 				</Button>
-				<TaskList listTask={listTask}></TaskList>
-				<TaskForm open={open} cancel={this.cancelTaskForm}></TaskForm>
+				{this.renderSearchBox()}
+				{this.renderBoard()}
+				<TaskForm open={open} onClose={this.cancelTaskForm}></TaskForm>
 			</div>
 		);
 	}
@@ -65,19 +83,26 @@ TaskBoard.propTypes = {
 	classes: PropTypes.object,
 	listTask: PropTypes.array,
 	taskActionCreators: PropTypes.shape({
-		fetchListTaskRequest: PropTypes.func
+		fetchListTaskRequest: PropTypes.func,
+		filterTasks: PropTypes.func
+	}),
+	modalActionCreators: PropTypes.shape({
+		showModal: PropTypes.func,
+		hideModal: PropTypes.func
 	})
 };
 
 const mapStateToProps = state => {
 	return {
-		listTask: state.task.listTask
+		listTask: state.task.listTask,
+		open: state.modal.open
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		taskActionCreators: bindActionCreators(TaskActions, dispatch)
+		taskActionCreators: bindActionCreators(TaskActions, dispatch),
+		modalActionCreators: bindActionCreators(ModalActions, dispatch)
 	};
 };
 

@@ -1,10 +1,16 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-
 const theme = createMuiTheme({
 	palette: {
-		primary: '#03A9F4',
-		secondary: '#4CAF50',
-		error: '#FF5722'
+		primary: {
+			main: '#03A9F4'
+		},
+		secondary: {
+			main: '#4CAF50'
+		},
+		background: {
+			paper: '#fff',
+			default: '#fafafa'
+		}
 	},
 	typography: {
 		fontFamily: 'Roboto'

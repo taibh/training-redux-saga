@@ -3,14 +3,14 @@ import * as taskConstants from '../constants/task';
 
 export const fetchListTask = () => {
 	return {
-		type: taskConstants.FETCH_TASK
+		type: taskConstants.FETCH_TASKS
 	};
 };
 
 export const fetchListTaskSuccess = data => {
 	console.log(123)
 	return {
-		type: taskConstants.FETCH_TASK_SUCCESS,
+		type: taskConstants.FETCH_TASKS_SUCCESS,
 		payLoad: {
 			data
 		}
@@ -19,7 +19,7 @@ export const fetchListTaskSuccess = data => {
 
 export const fetchListTaskFailed = error => {
 	return {
-		type: taskConstants.FETCH_TASK_FAILED,
+		type: taskConstants.FETCH_TASKS_FAILED,
 		payLoad: {
 			error
 		}
@@ -29,10 +29,26 @@ export const fetchListTaskFailed = error => {
 export const fetchListTaskRequest = () => {
 	return dispatch => {
 		dispatch(fetchListTask());
-		// taskApis.getList().then(response => {
-		// 	dispatch(fetchListTaskSuccess(response.data));
-		// }).catch(error => {
-		// 	dispatch(fetchListTaskFailed(error));
-		// });
 	};
 };
+
+export const filterTasks = keyWord => ({
+	type: taskConstants.FILTER_TASKS,
+	payLoad: {
+		keyWord
+	}
+});
+
+export const filterTasksSuccess = data => ({
+	type: taskConstants.FILTER_TASKS_SUCCESS,
+	payLoad: {
+		data
+	}
+});
+
+export const filterTasksFailed = error => ({
+	type: taskConstants.FILTER_TASKS_FAILED,
+	payLoad: {
+		error
+	}
+});
